@@ -1,7 +1,23 @@
 from flask import Flask
 from flask import  render_template
+from flask import g
+import sqlite3
 app = Flask(__name__)
 
+# sql operations
+DATABASE = '/db/database.db'
+
+def connect_db():
+    return sqlite3.connect(DATABASE)
+
+@app.before_request
+def before_request():
+    g.db = connect_db()
+
+@app.teardown_request
+def teardown_request(exception):
+    if hasattr(g, 'db'):
+        g.db.close()
 @app.route('/')
 def hello_world():
     return 'Hello World!'
