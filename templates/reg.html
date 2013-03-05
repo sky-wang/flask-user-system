@@ -1,9 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>注册页面 - liuchang</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block body %}
+    <div class="well-large" style="background-color: #d9edf7">
+        <form class="form-horizontal" ation="{{ url_for('reg') }}" method=post>
 
-</body>
-</html>
+            <div class="control-group info">
+                <label class="control-label" for="email">电子邮箱：</label>
+                <div class="controls">
+                    <input type="text" id="email" placeholder="输入电子邮箱..."  name="email">
+                    <span class="help-block"> 请认真填写</span>
+                </div>
+            </div>
+
+            <div class="control-group info">
+                <label class="control-label" for="username">用户名：</label>
+                <div class="controls">
+                    <input type="text" id="username" placeholder="输入用户名..."  name="username">
+                    <span class="help-block"> 请认真填写</span>
+                </div>
+            </div>
+
+            <div class="control-group  info">
+                <label class="control-label " for="repassword">密码：</label>
+                <div class="controls">
+                    <input type="password" id="repassword" placeholder="输入密码..."  name="password">
+                    <span class="help-block"> 请认真填写，长度要大于6，只能输入字母和数字 </span>
+                </div>
+            </div>
+
+            <div class="control-group  info">
+                <label class="control-label " for="password">重复密码：</label>
+                <div class="controls">
+                    <input type="password" id="password" placeholder="输入密码..."  name="repassword">
+                    <span class="help-block"> 请认真填写，与前面的相同 </span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit"  class="btn btn-primary">Register</button>
+                    <button type="reset" class="btn btn-danger">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

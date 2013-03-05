@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>用户信息界面</title>
-</head>
-<body>
-user info!
-</body>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+    <div class="well-large" style="background-color: #d9edf7">
+      <div class='left'>
+        <p>  用户名： {{ user.Username }}</p>
+        <p>  电子邮箱： {{ user.Email }}  </p>
+         <p> 学校： {{ user.School }}    </p>
+        <p>  博客：{{ user.Blog }} </p>
+        <p>  介绍：{{ user.Intro }} </p>
+      </div>
+    </div>
+{% endblock %}

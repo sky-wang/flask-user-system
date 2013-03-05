@@ -1,9 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>登入界面</title>
-</head>
-<body>
-please login  in first!
-</body>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+    <div class="well-large" style="background-color: #d9edf7">
+        <form class="form-horizontal" ation="{{ url_for('reg') }}" method=post>
+
+            <div class="control-group info">
+                <label class="control-label" for="email">电子邮箱：</label>
+                <div class="controls">
+                    <input type="text" id="email" placeholder="输入电子邮箱..."  name="email">
+                 </div>
+            </div>
+            <div class="control-group  info">
+                <label class="control-label " for="repassword">密码：</label>
+                <div class="controls">
+                    <input type="password" id="repassword" placeholder="输入密码..."  name="password">
+                  </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit"  class="btn btn-primary">登陆</button>
+                    <button type="reset" class="btn btn-danger">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
