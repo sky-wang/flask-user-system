@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask import  render_template , request , redirect , url_for ,flash , session
-from flask import g
 from flask.ext import sqlalchemy
-from flask import Config
 from config import DATABASE ,SECRET_KEY
 import re
 app = Flask(__name__)
@@ -111,8 +109,38 @@ def info():
         return redirect(url_for('login'))
 
 
-@app.route('/edit')
+@app.route('/edit' , methods=['GET','POST'])
 def editinfo():
-    pass
+
+    if 'username' in session:
+        print 'have'
+        User = user.query.filter_by(Email = session['email']).first_or_404()
+        print 'hh'
+        if request.method == 'POST':
+            print "post"
+            username = request.form['username']
+            email = User.Email;
+            password = User.Password
+            school = request.form['school']
+            blog = request.form['blog']
+            intro = request.form['intro']
+            age =int( request.form['age'] )
+            user.query.filter_by(Email = email).update(     dict(Username = username,
+                                                            Password = password,
+                                                            Email = email,
+                                                            School=school,
+                                                            Blog=blog,
+                                                            Age=age,
+                                                            Introdution=intro))
+            db.session.commit()
+            return redirect(url_for('info'))
+        else :
+            return render_template('edit.html',user =User)
+    else :
+        flash("Please login system first !!")
+        return redirect(url_for('login'))
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
