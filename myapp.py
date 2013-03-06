@@ -13,9 +13,9 @@ db = sqlalchemy.SQLAlchemy(app)
 
 class user(db.Model):
     UID = db.Column(db.Integer , primary_key=True,autoincrement=True,unique=True) #id
-    Username = db.Column(db.String , nullable=False,)
-    Password = db.Column(db.String , nullable=False)
-    Email = db.Column(db.String ,nullable = False)
+    Username = db.Column(db.String )
+    Password = db.Column(db.String )
+    Email = db.Column(db.String )
     School = db.Column(db.String , nullable = True)
     Age = db.Column(db.Integer)
     Blog = db.Column(db.String)
@@ -117,21 +117,21 @@ def editinfo():
         User = user.query.filter_by(Email = session['email']).first_or_404()
         print 'hh'
         if request.method == 'POST':
-            print "post"
-            username = request.form['username']
-            email = User.Email;
-            password = User.Password
-            school = request.form['school']
-            blog = request.form['blog']
-            intro = request.form['intro']
-            age =int( request.form['age'] )
-            user.query.filter_by(Email = email).update(     dict(Username = username,
-                                                            Password = password,
-                                                            Email = email,
-                                                            School=school,
-                                                            Blog=blog,
-                                                            Age=age,
-                                                            Introdution=intro))
+            if request.form['username'] != "":
+                print request.form['username']
+                User.Username = request.form['username']
+            if request.form['school'] != "":
+                print request.form['school']
+                User.School = request.form['school']
+            if request.form['blog'] != "":
+                print request.form['blog']
+                User.Blog = request.form['blog']
+            if request.form['intro'] != "":
+                print request.form['intro']
+                User.Introduction = request.form['intro']
+            if request.form['age'] != "":
+                print  request.form['age']
+                User.Age =int( request.form['age'] )
             db.session.commit()
             return redirect(url_for('info'))
         else :

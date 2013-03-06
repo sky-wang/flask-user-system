@@ -1,41 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>用户信息比较界面</title>
-</head>
-<body>
-edit your info!
-</body>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+    <div class="well-large" style="background-color: #d9edf7" xmlns="http://www.w3.org/1999/html">
+        <form class="form-horizontal" ation="{{ url_for('reg') }}" method=post>
 
+            <div class="control-group warning">
+                <label class="control-label" for="inputname">姓名：</label>
 
+                <div class="controls warning">
+                    <input type="text" id="inputname" placeholder="{{ user.Username }}" name="username">
+                </div>
+            </div>
 
-<div class="control-group">
-    <label class="control-label" for="inputname">姓名：</label>
-    <div class="controls">
-        <input type="text" id="inputname" placeholder="输入姓名..." name="name">
+            <div class="control-group warning">
+                <label class="control-label " for="inputschool">学校：</label>
+
+                <div class="controls warning">
+                    <input type="text" id="inputschool" placeholder=" {{ user.School }}" name="school">
+                </div>
+            </div>
+
+            <div class="control-group warning">
+                <label class="control-label" for="age">年龄：</label>
+
+                <div class="controls warning">
+                    <input type="text" id="age" placeholder="{{ user.Age }}" name="age"
+                </div>
+            </div>
+            </br>
+            <div class="control-group warning">
+                <label class="control-label" for="blog">博客：</label>
+
+                <div class="controls">
+                    <input type="text" id="blog " placeholder="{{ user.Blog }}" name="blog"
+                </div>
+            </div>
+            <br>
+            <div class="control-group warning">
+                <label class="control-label" for="inputname">自我介绍：</label>
+
+                <div class="controls">
+                    <textarea class="span6" name="intro" rows="3" cols="40"
+                              placeholder="{{ user.Introduction }}"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit"  class="btn btn-primary">修改</button>
+                    <button type="reset" class="btn btn-danger">清空</button>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
-<div class="control-group">
-    <label class="control-label " for="inputstuid">学号：</label>
-    <div class="controls">
-        <input type="text" id="inputstuid" placeholder="输入学号..." name="stuid">
-    </div>
-</div>
-<div class="control-group">
-    <label class="control-label" for="inputname">学院：</label>
-    <div class="controls">
-        <select name="college">
-            <option name="cs" value="计算机学院">计算机学院</option>
-            <option name="sw" value="国际软件学院">国际软件学院</option>
-            <option name="math" value="数学学院">数学学院</option>
-            <option name="other" value="其它">其它</option>
-        </select>
-    </div>
-</div>
-<div class="control-group">
-    <label class="control-label" for="inputname">自我介绍：</label>
-    <div class="controls">
-        <textarea class="span6" name="intro" rows="3" cols="40" placeholder="简单的介绍下自己吧...." ></textarea>
-    </div>
-</div>
+
+{% endblock %}
