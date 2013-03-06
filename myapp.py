@@ -62,6 +62,9 @@ def index():
 #注册界面
 @app.route('/reg', methods=['GET', 'POST'])
 def reg():
+    if 'username' in session:
+        flash("You shoult login out first!")
+        return redirect(url_for('info'))
     if request.method == 'GET':
         #print "get"
         return render_template('reg.html')
@@ -83,6 +86,8 @@ def reg():
             db.session.add(newuser)
             db.session.commit()
             flash("Registration is successful!")
+            session['username'] = newuser.Username
+            session['email'] = newuser.Email
             return redirect(url_for('info'))
         else:
             flash("Registration is not successful!")
