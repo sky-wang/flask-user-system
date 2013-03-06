@@ -27,19 +27,23 @@ flask-user-system
    pip install -f requirements.txt
 ```
 2. 配置相关参数
-```bash
-vi config.py #打开文件
-DATABASE = 'sqlite:///db/database.db' #数据库文件
-SECRET_KEY  = 'liuchang0812@gmail.com' #密匙
-SMTP_HOST = 'smtp.qq.com' #smtp服务器
-SMTP_PORT = '587'         #端口
-SMTP_USER = 'xxxxxxxx@qq.com'#用户名
-SMTP_PASS = 'xxxxxxxx' #密码
+
+```python
+   vi config.py 
+   DATABASE = 'sqlite:///db/database.db' #数据库文件
+   SECRET_KEY  = 'liuchang0812@gmail.com' #密匙
+   SMTP_HOST = 'smtp.qq.com' #smtp服务器
+   SMTP_PORT = '587'         #端口
+   SMTP_USER = 'xxxxxxxx@qq.com'#用户名
+   SMTP_PASS = 'xxxxxxxx' #密码
+```
 
 3. 运行初始化脚本
+
 ```bash
 python init.py
 ```
+
 4. 打开浏览器，输入地址
 
 
