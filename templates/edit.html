@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
     <div class="well-large" style="background-color: #d9edf7" xmlns="http://www.w3.org/1999/html">
-        <form class="form-horizontal" ation="{{ url_for('reg') }}" method=post>
+        <form class="form-horizontal" ation="{{ url_for('editinfo') }}" method=post>
 
             <div class="control-group warning">
                 <label class="control-label" for="inputname">姓名：</label>
@@ -31,7 +31,7 @@
                 <label class="control-label" for="blog">博客：</label>
 
                 <div class="controls">
-                    <input type="text" id="blog " placeholder="{{ user.Blog }}" name="blog"
+                    <input type="text" id="blog" placeholder="{{ user.Blog }}" name="blog"
                 </div>
             </div>
             <br>

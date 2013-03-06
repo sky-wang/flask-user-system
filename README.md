@@ -42,10 +42,10 @@ flask-user-system
 
 ```bash
 python init.py
+python myapp.py
 ```
 
-4. 打开浏览器，输入地址
-
+4. 打开浏览器，输入地址 http://127.0.0.1:5000
 
 
 
