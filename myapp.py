@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
-from flask import  render_template , request , redirect , url_for ,flash , session
+from flask import  render_template , request , redirect , url_for ,flash , session ,escape
 from flask.ext import sqlalchemy
 from config import DATABASE ,SECRET_KEY
+from sendmail import sendmail
 import re
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
@@ -35,32 +36,43 @@ class user(db.Model):
 def vali(newone):
     if len(newone.Password) < 6:
         return 0
+    m = re.match('\w+@\w+\.\w+',str(newone.Email))
+    if m is None:
+        print 'email is wrong'
+        return 0;
+
+    m = re.match('\d+',str(newone.Age))
+    if m is None:
+        print 'age is wrong'
+        return 0;
     return 1
+
+
 # views
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def index():
+    return render_template('login.html')
 
 
 @app.route('/reg',methods=['GET','POST'])
 def reg():
     if request.method == 'GET':
-        print "get"
+        #print "get"
         return render_template('reg.html')
     else:
-        print "post"
+        #print "post"
         username = request.form['username']
         password = request.form['password']
         repassword = request.form['repassword']
         email = request.form['email']
 
-        print "< %s %s %s>" % (username , password ,email)
+        #print "< %s %s %s>" % (username , password ,email)
         if password != repassword:
             flash("passwords doesn't match!!")
             return render_template('reg.html')
 
         newuser = user(username , password , email )
-        print newuser
+        #print newuser
         if vali(newuser):
             db.session.add(newuser)
             db.session.commit()
@@ -121,16 +133,16 @@ def editinfo():
         if request.method == 'POST':
             if request.form['username'] != "":
                 print request.form['username']
-                User.Username = request.form['username']
+                User.Username = escape(request.form['username'])
             if request.form['school'] != "":
                 print request.form['school']
-                User.School = request.form['school']
+                User.School = escape(request.form['school'])
             if request.form['blog'] != "":
                 print request.form['blog']
-                User.Blog = request.form['blog']
+                User.Blog = escape(request.form['blog'])
             if request.form['intro'] != "":
                 print request.form['intro']
-                User.Introduction = request.form['intro']
+                User.Introduction = escape(request.form['intro'])
             if request.form['age'] != "":
                 print  request.form['age']
                 User.Age =int( request.form['age'] )
@@ -161,6 +173,23 @@ def changepassword():
     else:
         flash("Please login system first !!")
         return redirect(url_for('login'))
+@app.route('/findpassword',methods=['GET','POST'])
+def findpassword():
+    if request.method == 'GET':
+        return render_template('findpassword.html')
+    else :
+        email = request.form['email']
+        if len(user.query.filter_by(Email=email).all()) == 0:
+            flash("No this email!!")
+            return render_template('findpassword.html')
+        else:
+            password = user.query.filter_by(Email=email).first().Password
+            sendmail(email,'Find Your Password!!!! -by flask-user','your password is %s'%password)
+            flash("please check your email!!your password is find!!")
+            return redirect(url_for('login'))
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 if __name__ == '__main__':
     app.run(debug=True)
