@@ -72,10 +72,13 @@ def reg():
 
 @app.route('/login' , methods=['GET','POST'])
 def login():
+    print 'into log view'
     if 'username' in session:
+        print "logged"
         flash("Already logged in, please exit!")
-        redirect(url_for('info'))
+        return redirect(url_for('info'))
     else :
+        print 'nologged'
         if request.method == 'GET':
             return render_template('login.html')
         else :
@@ -113,9 +116,8 @@ def info():
 def editinfo():
 
     if 'username' in session:
-        print 'have'
+
         User = user.query.filter_by(Email = session['email']).first_or_404()
-        print 'hh'
         if request.method == 'POST':
             if request.form['username'] != "":
                 print request.form['username']
@@ -139,8 +141,26 @@ def editinfo():
     else :
         flash("Please login system first !!")
         return redirect(url_for('login'))
-
-
+@app.route('/changepassword',methods=['GET','POST'])
+def changepassword():
+    if 'username' in session:
+        if request.method == 'GET':
+            return render_template('changepassword.html')
+        else:
+            password = request.form['password']
+            newpassword = request.form['password']
+            repassword = request.form['password']
+            if user.query.filter_by(Email=session['email']).first().Password != password or newpassword != repassword or len(newpassword) < 6:
+                flash("password is wrong , or newpassword isn't match!")
+                return render_template('changepassword.html')
+            else:
+                user.query.filter_by(Email=session['email']).first().Password = newpassword
+                db.session.commit()
+                flash("Changed password!!")
+                return redirect(url_for('info'))
+    else:
+        flash("Please login system first !!")
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
