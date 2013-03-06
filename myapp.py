@@ -14,14 +14,14 @@ app.config['SECRET_KEY'] = SECRET_KEY
 db = sqlalchemy.SQLAlchemy(app)
 # def the user talbe
 class user(db.Model):
-    UID = db.Column(db.Integer, primary_key=True, autoincrement=True, unique=True) #id
-    Username = db.Column(db.String)
-    Password = db.Column(db.String)
-    Email = db.Column(db.String)
-    School = db.Column(db.String, nullable=True)
-    Age = db.Column(db.Integer)
-    Blog = db.Column(db.String)
-    Introduction = db.Column(db.String)
+    UID = db.Column(db.Integer(5), primary_key=True, autoincrement=True, unique=True) #id
+    Username = db.Column(db.String(20))
+    Password = db.Column(db.String(20))
+    Email = db.Column(db.String(30))
+    School = db.Column(db.String(20))
+    Age = db.Column(db.Integer(5))
+    Blog = db.Column(db.String(20))
+    Introduction = db.Column(db.String(400))
 
     def __init__(self, username, password, email, school='none', age=0, blog='http://baidu.com',
                  introdution='i am too lazy~~'):
@@ -88,10 +88,10 @@ def reg():
             flash("Registration is successful!")
             session['username'] = newuser.Username
             session['email'] = newuser.Email
-            return redirect(url_for('info'))
+            return render_template('info.html',user=newuser)
         else:
             flash("Registration is not successful!")
-            return redirect(url_for('login'))
+            return redirect(url_for('reg'))
 
 #登陆界面
 @app.route('/login', methods=['GET', 'POST'])
