@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask import  render_template, request, redirect, url_for, flash, session, escape
-from flaskext import sqlalchemy
-from flaskext.sqlalchemy import SQLAlchemy
+from flask.ext import sqlalchemy
 from config import DATABASE, SECRET_KEY
 from sendmail import sendmail
 import re
@@ -67,7 +66,6 @@ def vali(newone):
 @app.route('/')
 def index():
     return redirect(url_for('about'))
-
 
 #注册界面
 @app.route('/reg', methods=['GET', 'POST'])
@@ -203,7 +201,6 @@ def changepassword():
 #找回密码界面
 @app.route('/findpassword', methods=['GET', 'POST'])
 def findpassword():
-
     if request.method == 'GET':
         return render_template('findpassword.html')
     else:
