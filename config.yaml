@@ -1,0 +1,12 @@
+name: lcusersystem
+version: 1
+libraries:
+- name: django
+  version: "1.4"
+- name: numpy
+  version: "1.6.1"
+- name: flask-sqlalchemy
+  version: "0.15"
+handle:
+- errordoc:  500 /500.html
+- errordoc:  404 /404.html
