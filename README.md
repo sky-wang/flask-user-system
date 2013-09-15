@@ -1,25 +1,11 @@
 flask-user-system
 =================
 
-##use:
-1. flask 
-2. bootstrap
-3. sqlalchemy
-
-##fun:
-1. reg
-2. login
-3. edit infomation
-4. login out
-5. change password
-6. find password
-
-===============
 
 ##说明
 1. 程序采用python语言 ， 使用了flask网络框架 
 2. 项目地址：https://github.com/Liuchang0812/flask-user-system 
-3. 新浪云平台DEMO：http://lcusersystem.sinaapp.com/
+3. 新浪云平台DEMO：http://1.lcusersystem.sinaapp.com/
 
 ##安装说明
 1. 安装依赖环境：
